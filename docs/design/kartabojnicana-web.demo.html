@@ -1,0 +1,520 @@
+<style>
+  :root{
+    --font-display: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --ink:#241d3a; --body:#4a4460; --muted:#7b7591;
+    --bg:#ffffff; --surface:#f7f5fc; --surface-2:#efeaf9; --line:#e7e2f2;
+    --purple:#4a1a86; --purple-900:#2c0f57; --purple-700:#3b1570;
+    --orange:#f26a21; --orange-600:#dd570f;
+    --on-purple:#efe9fb; --on-purple-muted:#b8a9df; --purple-card:#5a2599;
+    --grad:linear-gradient(135deg,#f7852f 0%,#f26a21 28%,#8e39b0 72%,#4a1a86 100%);
+    --grad-soft:linear-gradient(135deg,#faf3ff,#fdefe6);
+    --radius:18px; --shadow:0 18px 50px -20px rgba(46,15,87,.35);
+    --maxw:1140px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#f1ebff; --body:#cbc3e0; --muted:#948bb2;
+      --bg:#140f26; --surface:#1c1638; --surface-2:#241d45; --line:#332a57;
+      --on-purple:#efe9fb; --on-purple-muted:#b8a9df; --purple-card:#5a2599;
+      --grad-soft:linear-gradient(135deg,#221a3f,#2a1633);
+      --shadow:0 18px 50px -20px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#f1ebff; --body:#cbc3e0; --muted:#948bb2;
+    --bg:#140f26; --surface:#1c1638; --surface-2:#241d45; --line:#332a57;
+    --grad-soft:linear-gradient(135deg,#221a3f,#2a1633);
+    --shadow:0 18px 50px -20px rgba(0,0,0,.6);
+  }
+  :root[data-theme="light"]{
+    --ink:#241d3a; --body:#4a4460; --muted:#7b7591;
+    --bg:#ffffff; --surface:#f7f5fc; --surface-2:#efeaf9; --line:#e7e2f2;
+    --grad-soft:linear-gradient(135deg,#faf3ff,#fdefe6);
+    --shadow:0 18px 50px -20px rgba(46,15,87,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--body);font-family:var(--font-sans);
+    font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--font-display);color:var(--ink);line-height:1.08;
+    text-wrap:balance;letter-spacing:-.01em;font-weight:700;margin:0;}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+    font-weight:700;color:var(--orange);display:inline-flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange);border-radius:2px}
+  .muted{color:var(--muted)}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:650;font-size:15.5px;
+    padding:13px 22px;border-radius:12px;cursor:pointer;border:1px solid transparent;
+    font-family:var(--font-sans);transition:transform .15s ease, box-shadow .2s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--orange);color:#fff;box-shadow:0 10px 24px -10px rgba(242,106,33,.7)}
+  .btn-primary:hover{background:var(--orange-600)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--purple)}
+  .btn-on-purple{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.28)}
+  .btn-on-purple:hover{background:rgba(255,255,255,.2)}
+
+  /* logo */
+  .logo{display:inline-flex;align-items:center;gap:11px}
+  .logo svg{display:block}
+  .logo .wm{font-family:var(--font-display);font-weight:700;line-height:.95;
+    letter-spacing:.02em;color:var(--ink);font-size:16px}
+  .logo .wm b{color:var(--orange);font-weight:700}
+
+  /* top notice */
+  .notice{background:var(--purple-900);color:var(--on-purple);font-size:12.5px}
+  .notice .wrap{display:flex;gap:14px;align-items:center;justify-content:center;
+    padding:9px 24px;text-align:center;flex-wrap:wrap}
+  .notice b{color:#fff}
+  .tag{background:var(--orange);color:#fff;border-radius:20px;padding:2px 10px;
+    font-weight:700;font-size:11px;letter-spacing:.04em}
+
+  /* header */
+  header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 86%,transparent);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:20px}
+  nav.links{display:flex;gap:26px;font-size:15px;font-weight:550}
+  nav.links a{color:var(--body);position:relative;padding:4px 0}
+  nav.links a:hover{color:var(--ink)}
+  nav.links a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:2px;
+    background:var(--orange);transition:right .25s ease}
+  nav.links a:hover::after{right:0}
+  .hdr-right{display:flex;align-items:center;gap:14px}
+  .theme{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);
+    background:var(--surface);cursor:pointer;color:var(--ink);font-size:15px;display:grid;place-items:center}
+  @media(max-width:900px){nav.links{display:none}}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center;
+    padding:76px 24px 84px}
+  .hero h1{font-size:clamp(38px,5.2vw,62px)}
+  .hero h1 .u{color:var(--orange);position:relative;white-space:nowrap}
+  .hero p.lead{font-size:19px;margin:22px 0 30px;max-width:33ch}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-note{margin-top:22px;font-size:14px;color:var(--muted)}
+  @media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px;padding:52px 24px 60px}}
+
+  /* card visual */
+  .karta{aspect-ratio:1.585;border-radius:22px;background:var(--grad);color:#fff;
+    padding:26px 28px;position:relative;box-shadow:var(--shadow);overflow:hidden;
+    display:flex;flex-direction:column;justify-content:space-between;isolation:isolate}
+  .karta::after{content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(120% 120% at 85% 15%,rgba(255,255,255,.25),transparent 55%)}
+  .karta .kt{display:flex;justify-content:space-between;align-items:flex-start}
+  .karta .kt .lbl{font-size:11px;letter-spacing:.22em;opacity:.85;text-transform:uppercase}
+  .karta .kt .nm{font-family:var(--font-display);font-size:22px;font-weight:700;margin-top:3px}
+  .chip{width:44px;height:33px;border-radius:7px;background:linear-gradient(135deg,#ffe6b0,#e8b866);
+    position:relative;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .chip::before{content:"";position:absolute;inset:7px 10px;border:1px solid rgba(0,0,0,.25);border-radius:3px}
+  .karta .kb{display:flex;justify-content:space-between;align-items:flex-end}
+  .karta .kb .who{font-size:15px;font-weight:600;letter-spacing:.02em}
+  .karta .kb .meta{font-size:11.5px;opacity:.82;margin-top:3px;letter-spacing:.03em}
+  .qr{width:62px;height:62px;border-radius:9px;background:#fff;padding:6px}
+  .karta .float{position:absolute;inset:0;pointer-events:none}
+  .hero-card-shell{position:relative}
+  .hero-card-shell .halo{position:absolute;inset:-30px -20px;z-index:-1;border-radius:40px;
+    background:radial-gradient(60% 60% at 70% 30%,rgba(242,106,33,.22),transparent 70%),
+    radial-gradient(60% 60% at 20% 80%,rgba(74,26,134,.22),transparent 70%);filter:blur(6px)}
+  .badge-free{position:absolute;top:-14px;right:-10px;background:#fff;color:var(--purple);
+    font-weight:800;font-size:12.5px;padding:8px 14px;border-radius:30px;box-shadow:var(--shadow);
+    border:1px solid var(--line)}
+  :root[data-theme="dark"] .badge-free,@media(prefers-color-scheme:dark){}
+
+  /* sections */
+  section{padding:78px 0}
+  .sec-head{max-width:60ch}
+  .sec-head h2{font-size:clamp(28px,3.6vw,40px);margin:14px 0 0}
+  .sec-head p{margin:16px 0 0;font-size:17.5px}
+
+  /* purple band */
+  .band{background:var(--purple);color:var(--on-purple);position:relative;overflow:hidden}
+  .band::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(90% 120% at 100% 0,rgba(242,106,33,.22),transparent 55%),
+    radial-gradient(80% 120% at 0 100%,rgba(255,255,255,.06),transparent 60%)}
+  .band .wrap{position:relative}
+  .band h2{color:#fff}
+  .band .eyebrow{color:#ffb98a}
+  .band .eyebrow::before{background:#ffb98a}
+  .band .sec-head p{color:var(--on-purple-muted)}
+
+  /* tiles */
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:38px}
+  .tile{background:var(--purple-card);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);
+    padding:22px;transition:transform .18s ease,background .18s ease}
+  .tile:hover{transform:translateY(-4px);background:#6a2fb0}
+  .tile .ic{width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.14);
+    display:grid;place-items:center;margin-bottom:14px;color:#fff}
+  .tile h3{color:#fff;font-family:var(--font-sans);font-size:17px;font-weight:700;letter-spacing:-.01em}
+  .tile p{color:var(--on-purple-muted);font-size:14.5px;margin:7px 0 0;line-height:1.55}
+  @media(max-width:820px){.tiles{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.tiles{grid-template-columns:1fr}}
+
+  /* card classes */
+  .classes{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
+  .cls{border:1px solid var(--line);border-radius:var(--radius);background:var(--bg);
+    padding:30px;position:relative;overflow:hidden}
+  .cls.res{background:var(--grad-soft)}
+  .cls .rail{position:absolute;top:0;left:0;bottom:0;width:5px;background:var(--grad)}
+  .cls h3{font-size:23px}
+  .cls .price{font-size:13px;font-weight:700;color:var(--orange);letter-spacing:.03em;
+    text-transform:uppercase;margin-top:6px}
+  .cls ul{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-direction:column;gap:11px}
+  .cls li{display:flex;gap:11px;font-size:15px;align-items:flex-start}
+  .cls li svg{flex:none;margin-top:3px;color:var(--purple)}
+  :root[data-theme="dark"] .cls li svg,@media(prefers-color-scheme:dark){}
+  @media(max-width:760px){.classes{grid-template-columns:1fr}}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px;counter-reset:s}
+  .step{position:relative;padding-top:8px}
+  .step .n{font-family:var(--font-display);font-size:15px;font-weight:700;color:#fff;
+    width:40px;height:40px;border-radius:50%;background:var(--grad);display:grid;place-items:center;
+    box-shadow:var(--shadow);margin-bottom:16px}
+  .step h3{font-size:19px;font-family:var(--font-sans);font-weight:700}
+  .step p{margin:8px 0 0;font-size:15px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr;gap:14px}}
+
+  /* merchants split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .split .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px}
+  .stat-row{display:flex;gap:14px;margin-top:20px}
+  .stat{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .stat .big{font-family:var(--font-display);font-size:30px;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+  .stat .cap{font-size:12.5px;color:var(--muted);margin-top:2px}
+  @media(max-width:820px){.split{grid-template-columns:1fr;gap:34px}}
+
+  /* catalog teaser */
+  .cat{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .pill{border:1px solid var(--line);background:var(--surface);border-radius:30px;
+    padding:9px 16px;font-size:14px;font-weight:600;color:var(--ink);display:inline-flex;gap:8px;align-items:center}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--orange)}
+
+  /* faq */
+  .faq{margin-top:34px;border-top:1px solid var(--line)}
+  details{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;list-style:none;padding:20px 44px 20px 0;font-weight:650;color:var(--ink);
+    font-size:17px;position:relative}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";position:absolute;right:8px;top:16px;font-size:24px;color:var(--orange);
+    font-weight:400;transition:transform .2s ease}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{margin:0 0 22px;max-width:70ch}
+
+  /* cta band */
+  .ctaband{background:var(--grad);color:#fff;border-radius:26px;padding:52px;text-align:center;
+    position:relative;overflow:hidden}
+  .ctaband h2{color:#fff;font-size:clamp(26px,3.4vw,38px)}
+  .ctaband p{color:rgba(255,255,255,.9);max-width:50ch;margin:14px auto 26px}
+  .ctaband .hero-cta{justify-content:center}
+
+  /* footer */
+  footer{background:var(--purple-900);color:var(--on-purple-muted);padding:56px 0 30px;margin-top:0}
+  .fcols{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:36px}
+  footer .logo .wm{color:#fff}
+  footer h4{color:#fff;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 14px}
+  footer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;font-size:14.5px}
+  footer a:hover{color:#fff}
+  .fbot{border-top:1px solid rgba(255,255,255,.12);margin-top:38px;padding-top:20px;
+    font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  @media(max-width:760px){.fcols{grid-template-columns:1fr;gap:26px}}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}
+    .btn:hover,.tile:hover{transform:none}}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:6px}
+</style>
+
+<div class="notice"><div class="wrap">
+  <span class="tag">DEMO</span>
+  <span>Ukážkový návrh <b>kartabojnicana.sk</b> — vizuál a texty ešte doladíme; konkrétne čísla a partnerov doplní mesto.</span>
+</div></div>
+
+<header><div class="wrap">
+  <a class="logo" href="#" aria-label="Dobré Bojnice — Bojnická karta">
+    <svg width="38" height="38" viewBox="0 0 48 48" role="img" aria-hidden="true">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f7852f"/><stop offset=".45" stop-color="#f26a21"/>
+        <stop offset="1" stop-color="#4a1a86"/></linearGradient></defs>
+      <rect x="3" y="3" width="42" height="42" rx="12" fill="url(#lg)"/>
+      <path d="M14 34V20h3v-3h3v3h3v-3h3v3h3v14z" fill="#fff" opacity=".95"/>
+      <rect x="21" y="26" width="6" height="8" rx="1" fill="url(#lg)"/>
+    </svg>
+    <span class="wm">DOBRÉ<br><b>BOJNICE</b></span>
+  </a>
+  <nav class="links" aria-label="Hlavné menu">
+    <a href="#co">Čo je karta</a>
+    <a href="#pre-koho">Pre koho</a>
+    <a href="#ako">Ako funguje</a>
+    <a href="#prevadzky">Pre prevádzky</a>
+    <a href="#faq">Otázky</a>
+  </nav>
+  <div class="hdr-right">
+    <button class="theme" id="themeBtn" aria-label="Prepnúť tmavý režim" title="Svetlý / tmavý režim">◑</button>
+    <a class="btn btn-primary" href="#">Získať kartu</a>
+  </div>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <div class="reveal">
+    <span class="eyebrow">Vernostný program mesta Bojnice</span>
+    <h1 style="margin-top:18px">Bojnická karta.<br>Mesto, ktoré sa vám <span class="u">oplatí</span>.</h1>
+    <p class="lead">Jedna karta pre Bojničanov aj návštevníkov — zľavy u partnerov mesta,
+      rezidentské výhody a všetko jednoducho v mobile alebo na fyzickej karte.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#">Získať kartu zdarma
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost" href="#ako">Ako to funguje</a>
+    </div>
+    <p class="hero-note">Turistická aj rezidentská karta sú <b>zdarma</b>. Registrácia online do 3 minút.</p>
+  </div>
+  <div class="reveal hero-card-shell">
+    <div class="halo"></div>
+    <span class="badge-free">zdarma</span>
+    <div class="karta" role="img" aria-label="Ukážka Karty Bojničana s logom Dobré Bojnice">
+      <div class="kt">
+        <div>
+          <div class="lbl">Karta Bojničana</div>
+          <div class="nm">Dobré Bojnice</div>
+        </div>
+        <svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true">
+          <rect x="3" y="3" width="42" height="42" rx="12" fill="rgba(255,255,255,.16)"/>
+          <path d="M14 34V20h3v-3h3v3h3v-3h3v3h3v14z" fill="#fff"/>
+          <rect x="21" y="26" width="6" height="8" rx="1" fill="none"/>
+        </svg>
+      </div>
+      <div class="kb">
+        <div>
+          <div class="chip" aria-hidden="true"></div>
+          <div class="who" style="margin-top:14px">Jana Nováková</div>
+          <div class="meta">REZIDENT · Platí do 08/2029</div>
+        </div>
+        <div class="qr" aria-hidden="true">
+          <svg width="50" height="50" viewBox="0 0 50 50">
+            <rect width="50" height="50" fill="#fff"/>
+            <g fill="#241d3a">
+              <rect x="2" y="2" width="14" height="14"/><rect x="5" y="5" width="8" height="8" fill="#fff"/><rect x="7" y="7" width="4" height="4" fill="#241d3a"/>
+              <rect x="34" y="2" width="14" height="14"/><rect x="37" y="5" width="8" height="8" fill="#fff"/><rect x="39" y="7" width="4" height="4" fill="#241d3a"/>
+              <rect x="2" y="34" width="14" height="14"/><rect x="5" y="37" width="8" height="8" fill="#fff"/><rect x="7" y="39" width="4" height="4" fill="#241d3a"/>
+              <rect x="20" y="4" width="3" height="3"/><rect x="25" y="4" width="3" height="3"/><rect x="20" y="10" width="3" height="3"/><rect x="28" y="9" width="3" height="3"/>
+              <rect x="20" y="20" width="3" height="3"/><rect x="26" y="20" width="3" height="3"/><rect x="32" y="20" width="3" height="3"/><rect x="38" y="22" width="3" height="3"/><rect x="44" y="20" width="3" height="3"/>
+              <rect x="20" y="26" width="3" height="3"/><rect x="24" y="30" width="3" height="3"/><rect x="30" y="26" width="3" height="3"/><rect x="36" y="28" width="3" height="3"/><rect x="42" y="26" width="3" height="3"/>
+              <rect x="22" y="38" width="3" height="3"/><rect x="28" y="36" width="3" height="3"/><rect x="34" y="38" width="3" height="3"/><rect x="40" y="36" width="3" height="3"/><rect x="44" y="42" width="3" height="3"/>
+              <rect x="20" y="44" width="3" height="3"/><rect x="30" y="44" width="3" height="3"/><rect x="36" y="44" width="3" height="3"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CO JE KARTA -->
+<section id="co" class="band"><div class="wrap">
+  <div class="sec-head reveal">
+    <span class="eyebrow">Prečo Bojnická karta</span>
+    <h2>Výhody, ktoré ostávajú v Bojniciach.</h2>
+    <p>Bojnice žijú z návštevníkov — no výhody z toho doteraz nemal priamo Bojničan.
+      Karta prináša konkrétny úžitok obyvateľom aj hosťom a pomáha lokálnym prevádzkam.</p>
+  </div>
+  <div class="tiles">
+    <div class="tile reveal"><div class="ic">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 7h6M7 3h10a2 2 0 0 1 2 2v14l-3-2-2 2-2-2-2 2-2-2-3 2V5a2 2 0 0 1 2-2Z"/></svg></div>
+      <h3>Zľavy u partnerov</h3>
+      <p>Zvýhodnené ceny v gastro prevádzkach, službách a pri mestských zariadeniach zapojených do programu.</p></div>
+    <div class="tile reveal"><div class="ic">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 16.5 7.1 18l.9-5.5-4-3.9L9.5 8Z"/></svg></div>
+      <h3>Rezidentská výhoda</h3>
+      <p>Občania s trvalým pobytom v Bojniciach majú hlbšie, celoročné výhody — je to karta pre Bojničanov.</p></div>
+    <div class="tile reveal"><div class="ic">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10 18.5h4"/></svg></div>
+      <h3>Karta v mobile</h3>
+      <p>Pridajte si kartu do Apple/Google Wallet, alebo ju otvorte v prehliadači. QR kód máte vždy po ruke.</p></div>
+    <div class="tile reveal"><div class="ic">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 14h5"/></svg></div>
+      <h3>Aj fyzická karta</h3>
+      <p>Pre seniorov a všetkých bez smartfónu — plastová karta s QR a NFC funguje úplne rovnako.</p></div>
+    <div class="tile reveal"><div class="ic">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 16v-4M12 16V8M16 16v-6"/></svg></div>
+      <h3>100 % prehľad pre prevádzky</h3>
+      <p>Každá uplatnená zľava je evidovaná. Žiadne papierové kupóny, plná kontrola nad nákladmi.</p></div>
+    <div class="tile reveal"><div class="ic">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <h3>Súkromie na prvom mieste</h3>
+      <p>Ukladáme len nevyhnutné údaje, dáta zostávajú v EÚ. Rodné číslo systém nikdy neuchováva čitateľne.</p></div>
+  </div>
+</div></section>
+
+<!-- PRE KOHO -->
+<section id="pre-koho"><div class="wrap">
+  <div class="sec-head reveal">
+    <span class="eyebrow">Pre koho je karta</span>
+    <h2>Dve karty, jeden program.</h2>
+    <p>Podľa toho, či v Bojniciach bývate alebo ste na návšteve — obe sú zdarma.</p>
+  </div>
+  <div class="classes">
+    <div class="cls res reveal"><span class="rail"></span>
+      <h3>Rezident</h3>
+      <div class="price">Zdarma · pre občanov s trvalým pobytom</div>
+      <ul>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Celoročné, hlbšie výhody od mesta aj partnerov</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Overenie trvalého pobytu na mestskom úrade (neskôr aj cez eID)</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Dlhá platnosť, automatická obnova</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Digitálna aj fyzická karta</li>
+      </ul>
+    </div>
+    <div class="cls reveal"><span class="rail"></span>
+      <h3>Turista</h3>
+      <div class="price">Zdarma · pre návštevníkov Bojníc</div>
+      <ul>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Registrácia e-mailom za pár minút</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Platnosť 24 / 48 / 72 hodín alebo sezónna</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Sezónne zľavy u partnerov počas pobytu</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Karta v mobile ihneď po registrácii</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- AKO FUNGUJE -->
+<section id="ako" style="background:var(--surface)"><div class="wrap">
+  <div class="sec-head reveal">
+    <span class="eyebrow">Ako to funguje</span>
+    <h2>Od registrácie po zľavu za tri kroky.</h2>
+  </div>
+  <div class="steps">
+    <div class="step reveal"><div class="n">1</div>
+      <h3>Zaregistrujte sa online</h3>
+      <p>Vyplňte krátku registráciu na tejto stránke. Turista overí e-mail, rezident si pobyt potvrdí na mestskom úrade.</p></div>
+    <div class="step reveal"><div class="n">2</div>
+      <h3>Kartu máte v mobile</h3>
+      <p>Pridajte si ju do peňaženky v telefóne alebo otvorte vo webovom portáli. Kto chce, dostane fyzickú kartu.</p></div>
+    <div class="step reveal"><div class="n">3</div>
+      <h3>U partnera ukážete QR</h3>
+      <p>Obsluha naskenuje váš kód a potvrdí zľavu. Hotovo za pár sekúnd — a všetko je bezpečne zaznamenané.</p></div>
+  </div>
+</div></section>
+
+<!-- PRE PREVADZKY -->
+<section id="prevadzky"><div class="wrap split">
+  <div class="reveal">
+    <span class="eyebrow">Pre prevádzky a partnerov</span>
+    <h2 style="font-size:clamp(26px,3.4vw,38px);margin-top:14px">Viac zákazníkov, plná kontrola nad zľavami.</h2>
+    <p style="margin-top:16px">Zapojte svoju prevádzku do programu a získajte prehľad, aký papierové
+      kupóny nikdy nedali. Každé uplatnenie vidíte v reálnom čase, s dennými aj mesačnými súčtami.</p>
+    <div class="hero-cta" style="margin-top:26px">
+      <a class="btn btn-primary" href="#">Chcem zapojiť prevádzku</a>
+      <a class="btn btn-ghost" href="#">Prihlásenie prevádzky</a>
+    </div>
+  </div>
+  <div class="reveal panel">
+    <div class="eyebrow" style="color:var(--purple)"><span></span>Ukážka prehľadu</div>
+    <div class="stat-row">
+      <div class="stat"><div class="big">≤ 10 s</div><div class="cap">jedno uplatnenie zľavy</div></div>
+      <div class="stat"><div class="big">100 %</div><div class="cap">uplatnení v evidencii</div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="big">CSV / PDF</div><div class="cap">exporty pre účtovníctvo</div></div>
+      <div class="stat"><div class="big">real-time</div><div class="cap">prehľad pre majiteľa</div></div>
+    </div>
+    <p class="muted" style="font-size:13px;margin:16px 0 0">Konkrétne čísla programu doplní mesto po spustení.</p>
+  </div>
+</div></section>
+
+<!-- KATALOG -->
+<section class="band"><div class="wrap">
+  <div class="sec-head reveal">
+    <span class="eyebrow">Kde karta platí</span>
+    <h2>Katalóg partnerov — čoskoro.</h2>
+    <p>Pripravujeme verejný zoznam prevádzok a zliav, kde Bojnická karta platí. Zoznam sa zverejní pri spustení programu.</p>
+  </div>
+  <div class="cat reveal">
+    <span class="pill"><span class="dot"></span>Gastro</span>
+    <span class="pill"><span class="dot"></span>Kúpele a wellness</span>
+    <span class="pill"><span class="dot"></span>Kultúra a podujatia</span>
+    <span class="pill"><span class="dot"></span>Šport a voľný čas</span>
+    <span class="pill"><span class="dot"></span>Služby</span>
+    <span class="pill"><span class="dot"></span>Turistické atrakcie</span>
+  </div>
+</div></section>
+
+<!-- FAQ -->
+<section id="faq"><div class="wrap" style="max-width:820px">
+  <div class="sec-head reveal">
+    <span class="eyebrow">Časté otázky</span>
+    <h2>Dobré vedieť.</h2>
+  </div>
+  <div class="faq reveal">
+    <details open><summary>Koľko karta stojí?</summary><p>Základná turistická aj rezidentská karta sú zdarma. Program je službou mesta pre občanov a návštevníkov.</p></details>
+    <details><summary>Potrebujem smartfón?</summary><p>Nie. Kartu môžete mať v mobile, ale rovnako funguje aj fyzická plastová karta s QR a NFC — určená najmä pre seniorov a ľudí bez smartfónu.</p></details>
+    <details><summary>Ako sa overuje, že som Bojničan?</summary><p>Trvalý pobyt potvrdí pracovník mestského úradu pri vydaní rezidentskej karty. Systém si uchováva len údaj, že overenie prebehlo — nie vašu kópiu dokladu ani rodné číslo v čitateľnej podobe.</p></details>
+    <details><summary>Čo s mojimi údajmi?</summary><p>Ukladáme len údaje nevyhnutné na fungovanie karty a spracúvame ich v rámci EÚ. Zľavu vždy potvrdzuje prevádzka — bez záznamu žiadna zľava nevznikne.</p></details>
+    <details><summary>Kde kartu použijem?</summary><p>U zapojených partnerov mesta. Verejný katalóg partnerov a zliav zverejníme pri spustení programu.</p></details>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section style="padding-top:0"><div class="wrap">
+  <div class="ctaband reveal">
+    <h2>Vaša karta na vás čaká.</h2>
+    <p>Zaregistrujte sa a majte výhody Bojníc vždy so sebou — v mobile aj na fyzickej karte.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" style="background:#fff;color:var(--purple)" href="#">Získať kartu zdarma</a>
+      <a class="btn btn-on-purple" href="#ako">Ako to funguje</a>
+    </div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="fcols">
+    <div>
+      <a class="logo" href="#" style="margin-bottom:14px">
+        <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true">
+          <rect x="3" y="3" width="42" height="42" rx="12" fill="url(#lg)"/>
+          <path d="M14 34V20h3v-3h3v3h3v-3h3v3h3v14z" fill="#fff"/>
+        </svg>
+        <span class="wm">DOBRÉ<br><b>BOJNICE</b></span>
+      </a>
+      <p style="font-size:14px;max-width:34ch;margin:6px 0 0">Bojnická karta — vernostný a zľavový program mesta Bojnice pre občanov a návštevníkov.</p>
+    </div>
+    <div><h4>Program</h4><ul>
+      <li><a href="#co">Čo je karta</a></li>
+      <li><a href="#pre-koho">Pre koho</a></li>
+      <li><a href="#ako">Ako funguje</a></li>
+      <li><a href="#prevadzky">Pre prevádzky</a></li>
+    </ul></div>
+    <div><h4>Aplikácia</h4><ul>
+      <li><a href="#">Získať kartu (registrácia)</a></li>
+      <li><a href="#">Moja karta</a></li>
+      <li><a href="#">Prihlásenie prevádzky</a></li>
+      <li><a href="#">Ochrana osobných údajov</a></li>
+    </ul></div>
+  </div>
+  <div class="fbot">
+    <span>© 2026 Mesto Bojnice · Bojnická karta</span>
+    <span>Aplikácia beží na app.kartabojnicana.sk</span>
+  </div>
+</div></footer>
+
+<script>
+  (function(){
+    var root=document.documentElement, btn=document.getElementById('themeBtn');
+    btn && btn.addEventListener('click',function(){
+      var cur=root.getAttribute('data-theme');
+      var dark=cur? cur==='dark' : matchMedia('(prefers-color-scheme:dark)').matches;
+      root.setAttribute('data-theme', dark?'light':'dark');
+    });
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  })();
+</script>
