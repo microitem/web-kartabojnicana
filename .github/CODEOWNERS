@@ -1,0 +1,23 @@
+# CODEOWNERS — mapa vlastníctva ciest (kánon microitem/agent-governance §2a/§5)
+# Reviewer (Claude) = dokumentácia/obsahová štruktúra. Implementer (VS Code) = kód webu.
+# Nahraď @REVIEWER a @IMPLEMENTER reálnymi GitHub identitami, keď budú pridelené.
+
+# Predvolený vlastník (dokumentačný charakter v úvodnej fáze)
+*                       @REVIEWER
+
+# Dokumentačná doména — reviewer (Claude)
+/docs/                  @REVIEWER
+/*.md                   @REVIEWER
+/AGENTS.md              @REVIEWER
+/CLAUDE.md              @REVIEWER
+/.github/copilot-instructions.md   @REVIEWER
+# Výnimka: devlog je výstup implementera (kánon E4)
+/docs/devlog/           @IMPLEMENTER
+
+# Kódová doména — implementer (VS Code)
+/src/                   @IMPLEMENTER
+/app/                   @IMPLEMENTER
+/public/                @IMPLEMENTER
+/package.json           @IMPLEMENTER
+/package-lock.json      @IMPLEMENTER
+/.github/workflows/     @IMPLEMENTER
