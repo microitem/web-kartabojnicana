@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #241d3a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #140f26;
+    --foreground: #f1ebff;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Karta Bojničana brand (R-2026-34) — shared with app.kartabojnicana.sk */
+.brand-gradient {
+  background: linear-gradient(135deg, #f56317 0%, #ee5411 18%, #1f86c6 52%, #6a1fb2 82%, #9c1fca 100%);
+}
+
+:focus-visible {
+  outline: 3px solid #f26a21;
+  outline-offset: 2px;
+}

@@ -1,0 +1,30 @@
+# web-kartabojnicana — Docker Compose (dev, VPS6). Static/presentational site,
+# no database, no secrets beyond NEXT_PUBLIC_APP_URL (not sensitive).
+
+networks:
+  web-kartabojnicana_net:
+    name: web-kartabojnicana_dev_net
+
+services:
+  web-kartabojnicana-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: web-kartabojnicana-app
+    restart: unless-stopped
+    cpus: "1.0"
+    environment:
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://app.kartabojnicana.sk}
+    ports:
+      - "3037:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    networks: [web-kartabojnicana_net]
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
