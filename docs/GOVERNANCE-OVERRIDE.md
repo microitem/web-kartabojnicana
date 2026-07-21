@@ -25,8 +25,8 @@ R-2026-29).
 
 ## 3. Komunikačný kanál
 
-- **Projektový kanál = GitHub Issue v `microitem/web-kartabojnicana`** (číslo doplní
-  reviewer pri prvom zadaní). Formát správ podľa kánonu §4 (`## [NN] OD -> PRE | dátum | STAV`,
+- **Projektový kanál = [Issue #1](https://github.com/microitem/web-kartabojnicana/issues/1)**
+  v `microitem/web-kartabojnicana`. Formát správ podľa kánonu §4 (`## [NN] OD -> PRE | dátum | STAV`,
   najnovšia navrchu, komentáre sa nepoužívajú).
 - Program a rozhodnutia sú nadradené v repe `kartabojnicana` (`rozhodnutia.md`) — tento
   web z nich vychádza (R-2026-28/29/30). Cross-repo rozhodnutie sa zapisuje tam.
