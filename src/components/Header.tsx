@@ -19,14 +19,14 @@ export function Header() {
         </Link>
         <nav aria-label="Hlavné menu" className="hidden gap-6 text-sm font-medium text-gray-700 md:flex">
           {NAV.map((item) => (
-            <a key={item.href} href={item.href} className="hover:text-gray-950">
+            <a key={item.href} href={item.href} className="transition-colors duration-200 hover:text-gray-950">
               {item.label}
             </a>
           ))}
         </nav>
         <a
           href={appLinks.registerTourist}
-          className="rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700"
+          className="rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-md active:translate-y-0"
         >
           Získať kartu
         </a>

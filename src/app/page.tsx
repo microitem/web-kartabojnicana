@@ -58,7 +58,16 @@ export default function Home() {
       <DraftNotice />
       <main>
         {/* Hero */}
-        <section className="mx-auto grid max-w-6xl gap-12 px-4 py-16 md:grid-cols-2 md:items-center md:py-24">
+        <section className="relative mx-auto grid max-w-6xl gap-12 overflow-hidden px-4 py-16 md:grid-cols-2 md:items-center md:py-24">
+          <div
+            className="blob absolute -left-24 -top-24 -z-10 h-72 w-72 rounded-full bg-orange-400/30"
+            aria-hidden="true"
+          />
+          <div
+            className="blob absolute -right-16 top-10 -z-10 h-80 w-80 rounded-full bg-[#6a1fb2]/20"
+            style={{ animationDelay: "-8s" }}
+            aria-hidden="true"
+          />
           <div>
             <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
               <span className="h-0.5 w-6 rounded bg-orange-600" />
@@ -74,13 +83,13 @@ export default function Home() {
             <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href={appLinks.registerTourist}
-                className="rounded-xl bg-orange-600 px-5 py-3 text-[15px] font-semibold text-white hover:bg-orange-700"
+                className="rounded-xl bg-orange-600 px-5 py-3 text-[15px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-600/25 active:translate-y-0"
               >
                 Získať kartu zdarma
               </a>
               <a
                 href="#ako-funguje"
-                className="rounded-xl border border-gray-300 px-5 py-3 text-[15px] font-semibold text-[#241d3a] hover:border-gray-400"
+                className="rounded-xl border border-gray-300 px-5 py-3 text-[15px] font-semibold text-[#241d3a] transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-400 hover:bg-gray-50"
               >
                 Ako to funguje
               </a>
@@ -89,7 +98,9 @@ export default function Home() {
               Turistická aj rezidentská karta sú <b>zdarma</b>. Registrácia online za pár minút.
             </p>
           </div>
-          <HeroCard />
+          <div className="hero-card-float">
+            <HeroCard />
+          </div>
         </section>
 
         {/* Čo je karta */}
@@ -108,7 +119,10 @@ export default function Home() {
             </p>
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {BENEFITS.map((b) => (
-                <div key={b.title} className="rounded-2xl border border-white/10 bg-[#5a2599] p-5">
+                <div
+                  key={b.title}
+                  className="reveal rounded-2xl border border-white/10 bg-[#5a2599] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-[#63289f] hover:shadow-xl hover:shadow-black/20"
+                >
                   <h3 className="text-[17px] font-bold">{b.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-[#b8a9df]">{b.text}</p>
                 </div>
@@ -128,7 +142,7 @@ export default function Home() {
             Podľa toho, či v Bojniciach bývate alebo ste na návšteve — obe sú zdarma.
           </p>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-orange-50 to-fuchsia-50 p-7">
+            <div className="reveal relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-orange-50 to-fuchsia-50 p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-900/10">
               <span className="brand-gradient absolute inset-y-0 left-0 w-1.5" aria-hidden="true" />
               <h3 className="text-xl font-bold text-[#241d3a]">Rezident</h3>
               <div className="mt-1.5 text-xs font-bold uppercase tracking-wide text-orange-600">
@@ -142,12 +156,12 @@ export default function Home() {
               </ul>
               <a
                 href={appLinks.registerResident}
-                className="mt-6 inline-block rounded-lg border border-[#4a1a86] px-4 py-2 text-sm font-semibold text-[#4a1a86] hover:bg-[#4a1a86] hover:text-white"
+                className="mt-6 inline-block rounded-lg border border-[#4a1a86] px-4 py-2 text-sm font-semibold text-[#4a1a86] transition-colors duration-200 hover:bg-[#4a1a86] hover:text-white"
               >
                 Podať žiadosť o rezidentskú kartu
               </a>
             </div>
-            <div className="relative overflow-hidden rounded-2xl border border-gray-200 p-7">
+            <div className="reveal relative overflow-hidden rounded-2xl border border-gray-200 p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-900/10">
               <span className="brand-gradient absolute inset-y-0 left-0 w-1.5" aria-hidden="true" />
               <h3 className="text-xl font-bold text-[#241d3a]">Turista</h3>
               <div className="mt-1.5 text-xs font-bold uppercase tracking-wide text-orange-600">
@@ -161,7 +175,7 @@ export default function Home() {
               </ul>
               <a
                 href={appLinks.registerTourist}
-                className="mt-6 inline-block rounded-lg border border-orange-600 px-4 py-2 text-sm font-semibold text-orange-600 hover:bg-orange-600 hover:text-white"
+                className="mt-6 inline-block rounded-lg border border-orange-600 px-4 py-2 text-sm font-semibold text-orange-600 transition-colors duration-200 hover:bg-orange-600 hover:text-white"
               >
                 Zaregistrovať sa ako turista
               </a>
@@ -197,8 +211,8 @@ export default function Home() {
                   text: "Obsluha naskenuje váš kód a potvrdí zľavu. Uplatnenie sa bezpečne zaznamená.",
                 },
               ].map((s) => (
-                <div key={s.n}>
-                  <div className="brand-gradient mb-4 flex h-10 w-10 items-center justify-center rounded-full font-bold text-white">
+                <div key={s.n} className="reveal group">
+                  <div className="brand-gradient mb-4 flex h-10 w-10 items-center justify-center rounded-full font-bold text-white transition-transform duration-300 group-hover:scale-110">
                     {s.n}
                   </div>
                   <h3 className="text-lg font-bold text-[#241d3a]">{s.title}</h3>
@@ -227,7 +241,7 @@ export default function Home() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href={appLinks.merchantLogin}
-                  className="rounded-xl bg-orange-600 px-5 py-3 text-[15px] font-semibold text-white hover:bg-orange-700"
+                  className="rounded-xl bg-orange-600 px-5 py-3 text-[15px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-600/25 active:translate-y-0"
                 >
                   Prihlásenie prevádzky
                 </a>
@@ -237,7 +251,7 @@ export default function Home() {
                 — kontakt doplníme po schválení CEO.
               </p>
             </div>
-            <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-[0_18px_50px_-24px_rgba(46,15,87,.35)]">
+            <div className="reveal rounded-2xl border border-gray-200 bg-white p-7 shadow-[0_18px_50px_-24px_rgba(46,15,87,.35)] transition-shadow duration-300 hover:shadow-[0_24px_60px_-20px_rgba(46,15,87,.45)]">
               <div className="text-xs font-bold uppercase tracking-[0.18em] text-[#4a1a86]">
                 Ukážka prehľadu prevádzky
               </div>
@@ -284,7 +298,7 @@ export default function Home() {
                 (cat) => (
                   <span
                     key={cat}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium transition-colors duration-200 hover:border-white/40 hover:bg-white/10"
                   >
                     <span className="h-1.5 w-1.5 rounded-full bg-orange-300" />
                     {cat}
@@ -304,8 +318,18 @@ export default function Home() {
           <h2 className="mt-3 text-3xl font-bold text-[#241d3a] sm:text-4xl">Dobré vedieť.</h2>
           <div className="mt-8 border-t border-gray-200">
             {FAQ.map((item) => (
-              <details key={item.q} className="border-b border-gray-200 py-5">
-                <summary className="cursor-pointer text-[17px] font-semibold text-[#241d3a]">{item.q}</summary>
+              <details key={item.q} className="group border-b border-gray-200 py-5">
+                <summary className="flex cursor-pointer items-center justify-between gap-4 text-[17px] font-semibold text-[#241d3a] transition-colors duration-200 hover:text-orange-600">
+                  {item.q}
+                  <svg
+                    className="h-4 w-4 flex-none text-gray-400 transition-transform duration-300 group-open:rotate-180"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 7.5 10 12.5 15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </summary>
                 <p className="mt-3 max-w-[70ch] text-gray-600">{item.a}</p>
               </details>
             ))}
@@ -322,13 +346,13 @@ export default function Home() {
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <a
                 href={appLinks.registerTourist}
-                className="rounded-xl bg-white px-5 py-3 text-[15px] font-semibold text-[#4a1a86] hover:bg-gray-100"
+                className="rounded-xl bg-white px-5 py-3 text-[15px] font-semibold text-[#4a1a86] transition-all duration-200 hover:-translate-y-0.5 hover:bg-gray-100 hover:shadow-lg active:translate-y-0"
               >
                 Získať kartu zdarma
               </a>
               <a
                 href="#ako-funguje"
-                className="rounded-xl border border-white/40 bg-white/10 px-5 py-3 text-[15px] font-semibold text-white hover:bg-white/20"
+                className="rounded-xl border border-white/40 bg-white/10 px-5 py-3 text-[15px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/20"
               >
                 Ako to funguje
               </a>

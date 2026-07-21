@@ -33,3 +33,66 @@ body {
   outline: 3px solid #f26a21;
   outline-offset: 2px;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+summary {
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Jemné moderné efekty — vypnuté pri prefers-reduced-motion (WCAG 2.1 AA, W3) */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blob-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(3%, -4%) scale(1.08);
+  }
+}
+
+@keyframes card-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .blob {
+    animation: blob-float 16s ease-in-out infinite;
+  }
+
+  .hero-card-float {
+    animation: card-float 6s ease-in-out infinite;
+  }
+
+  /* Scroll-reveal iba v prehliadačoch s podporou (progresívne vylepšenie) —
+     bez podpory ostáva obsah vždy plne viditeľný, nikdy skrytý za JS/CSS. */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: fade-in-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
