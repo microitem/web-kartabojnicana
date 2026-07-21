@@ -6,8 +6,17 @@ produkčné súbory. Finálny web stavia implementer podľa `docs/00-zamer.md` +
 
 - [`kartabojnicana-web.demo.html`](kartabojnicana-web.demo.html) — prezentačná stránka
   `kartabojnicana.sk` (hero s Kartou Bojničana, výhody, Rezident/Turista, ako funguje,
-  pre prevádzky, katalóg, FAQ). Ukážka aplikácie `app.kartabojnicana.sk` je v repe
-  `microitem/kartabojnicana` → `docs/design/`.
+  pre prevádzky, katalóg, FAQ).
+- [`kartabojnicana-web-admin.demo.html`](kartabojnicana-web-admin.demo.html) — **admin/CMS**
+  prezentačnej stránky (správa sekcií, katalóg partnerov, podujatia, FAQ, publikovanie).
+  Bez osobných údajov (W1) — spravuje len obsah webu.
 
-> **Obsah je ukážkový** (W2): žiadne konkrétne čísla/partneri nie sú záväzné — finálne
-> texty, čísla a branding dodá **CEO**. Placeholdery sú jasne označené v texte stránky.
+Ukážky aplikácie (`app.kartabojnicana.sk` — portál + admin mesta) sú v repe
+`microitem/kartabojnicana` → `docs/design/`.
+
+> **Logo:** SVG v ukážkach je **verná rekreácia** loga Dobré Bojnice (nemal som prístup
+> k vloženému `.webp`). Pre produkciu **doložte reálny súbor loga** (`.webp`/SVG) do repa
+> — implementer ho použije namiesto rekreácie.
+>
+> **Obsah je ukážkový** (W2): konkrétne čísla/partneri nie sú záväzné — finálne texty,
+> čísla a branding dodá **CEO**. Placeholdery sú označené v texte stránky.
