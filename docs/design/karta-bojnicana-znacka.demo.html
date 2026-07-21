@@ -1,0 +1,213 @@
+<title>Karta Bojničana — Veža na farebnej karte</title>
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --bg:#f7f5f2;--surface:#fff;--tile:#f0ecff;--ink:#201a2e;--muted:#6b6478;--line:#e7e2dc;
+    --o:#f56317;--a:#17b8ec;--p:#9c1fca;
+    --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --vivid:linear-gradient(135deg,#f56317 0%,#ee5411 18%,#1f86c6 52%,#6a1fb2 82%,#9c1fca 100%);
+    --sunset:linear-gradient(140deg,#f7852f 0%,#ef4a1e 38%,#b3208f 74%,#6a1fb2 100%);
+    --night:linear-gradient(150deg,#241d3a 0%,#3a2d5e 42%,#7a2bb0 76%,#e6591a 130%);
+    --azure:linear-gradient(135deg,#18c0ef 0%,#1f86c6 44%,#6a1fb2 100%);
+  }
+  @media (prefers-color-scheme:dark){:root{--bg:#171320;--surface:#201a2d;--tile:#241d38;--ink:#f2eef7;--muted:#a79fb5;--line:#322a42}}
+  :root[data-theme="light"]{--bg:#f7f5f2;--surface:#fff;--tile:#f0ecff;--ink:#201a2e;--muted:#6b6478;--line:#e7e2dc}
+  :root[data-theme="dark"]{--bg:#171320;--surface:#201a2d;--tile:#241d38;--ink:#f2eef7;--muted:#a79fb5;--line:#322a42}
+
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,5vw,44px);line-height:1.08;margin:14px 0 0;letter-spacing:-.01em;text-wrap:balance}
+  h1 .g{background:linear-gradient(120deg,var(--o),var(--a) 52%,var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{max-width:62ch;color:var(--muted);font-size:18px;margin:16px 0 0}
+  header.top{padding:40px 0 6px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+  .theme{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:10px;width:40px;height:40px;font-size:17px;cursor:pointer;flex:none}
+  .theme:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+
+  h2.sec{font-family:var(--serif);font-size:22px;margin:44px 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:14.5px;margin:0 0 18px}
+
+  /* mark row */
+  .marks{display:flex;gap:14px;flex-wrap:wrap}
+  .mtile{width:92px;height:92px;border-radius:16px;display:grid;place-items:center;border:1px solid var(--line)}
+  .mtile.grad{background:var(--tile)}
+  .mtile.rev{background:#241d3a;border-color:transparent}
+  .mtile.ink{background:var(--surface)}
+  .mcap{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:8px}
+
+  /* CARD */
+  .kb{position:relative;aspect-ratio:1.586/1;border-radius:20px;background:var(--cardbg,var(--vivid));
+    color:#fff;padding:20px 22px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;
+    box-shadow:0 24px 50px -22px rgba(30,10,50,.55),inset 0 0 0 1px rgba(255,255,255,.10)}
+  .kb .sheen{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 82% at 14% -6%,rgba(255,255,255,.28),transparent 55%)}
+  .kb::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,0) 44%,rgba(18,5,38,.36))}
+  .kb .row{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .kb .brand{display:flex;align-items:center;gap:12px}
+  .kb .wm{font-family:var(--serif);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:12.5px;line-height:1.24;text-shadow:0 1px 10px rgba(0,0,0,.22)}
+  .kb .klass{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.16);backdrop-filter:blur(2px)}
+  .kb .bot{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+  .kb .chip{width:40px;height:30px;border-radius:6px;background:linear-gradient(135deg,#f6dd9c,#caa03f 60%,#a97f2c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .kb .chip::after{content:"";display:block;margin:9px auto 0;width:24px;height:10px;border:1px solid rgba(90,60,10,.5);border-radius:2px}
+  .kb .name{font-size:17px;font-weight:600;margin-top:14px;text-shadow:0 1px 10px rgba(0,0,0,.28)}
+  .kb .meta{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.9);margin-top:2px;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+  .kb .qr{width:58px;height:58px;border-radius:9px;background:#fff;padding:6px;flex:none;box-shadow:0 6px 14px -6px rgba(0,0,0,.5)}
+  .kb .qr svg{display:block;width:100%;height:100%}
+
+  .primary{max-width:404px;margin:6px auto 0}
+  .cardgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:6px}
+  @media (max-width:720px){.cardgrid{grid-template-columns:1fr}}
+  .cell .lbl{display:flex;align-items:center;gap:8px;margin:12px 2px 0;font-size:13px;color:var(--muted)}
+  .cell .lbl b{color:var(--ink);font-weight:600}
+  .pick{font-size:11px;font-weight:700;letter-spacing:.04em;color:#fff;background:linear-gradient(135deg,var(--o),var(--p));padding:2px 8px;border-radius:999px}
+
+  footer{margin:40px 0 60px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+  footer b{color:var(--ink)}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:flex;flex-direction:column;gap:8px}
+  .steps li{counter-increment:s;position:relative;padding-left:30px}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:12px;font-weight:700;display:grid;place-items:center}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="triGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f56317"/><stop offset=".26" stop-color="#ee5411"/>
+    <stop offset=".52" stop-color="#17b8ec"/><stop offset=".78" stop-color="#6a1fb2"/><stop offset="1" stop-color="#9c1fca"/>
+  </linearGradient>
+  <mask id="mSpire">
+    <circle cx="50" cy="8" r="3.4" fill="#fff"/>
+    <rect x="48.6" y="8" width="2.8" height="12" fill="#fff"/>
+    <path d="M51 9 L64 12.5 L51 16 Z" fill="#fff"/>
+    <path d="M50 18 L30 58 L70 58 Z" fill="#fff"/>
+    <rect x="34" y="57" width="32" height="31" fill="#fff"/>
+    <rect x="27" y="88" width="46" height="7" rx="3" fill="#fff"/>
+    <rect x="44" y="64" width="12" height="24" rx="6" fill="#000"/>
+    <rect x="37" y="46" width="26" height="4" rx="2" fill="#000"/>
+  </mask>
+  <symbol id="qr" viewBox="0 0 50 50">
+    <rect width="50" height="50" fill="#fff"/>
+    <g fill="#241d3a">
+      <rect x="2" y="2" width="14" height="14"/><rect x="5" y="5" width="8" height="8" fill="#fff"/><rect x="7" y="7" width="4" height="4" fill="#241d3a"/>
+      <rect x="34" y="2" width="14" height="14"/><rect x="37" y="5" width="8" height="8" fill="#fff"/><rect x="39" y="7" width="4" height="4" fill="#241d3a"/>
+      <rect x="2" y="34" width="14" height="14"/><rect x="5" y="37" width="8" height="8" fill="#fff"/><rect x="7" y="39" width="4" height="4" fill="#241d3a"/>
+      <rect x="20" y="4" width="3" height="3"/><rect x="25" y="4" width="3" height="3"/><rect x="20" y="10" width="3" height="3"/><rect x="28" y="9" width="3" height="3"/>
+      <rect x="20" y="20" width="3" height="3"/><rect x="26" y="20" width="3" height="3"/><rect x="32" y="20" width="3" height="3"/><rect x="38" y="22" width="3" height="3"/><rect x="44" y="20" width="3" height="3"/>
+      <rect x="20" y="26" width="3" height="3"/><rect x="24" y="30" width="3" height="3"/><rect x="30" y="26" width="3" height="3"/><rect x="36" y="28" width="3" height="3"/><rect x="42" y="26" width="3" height="3"/>
+      <rect x="22" y="38" width="3" height="3"/><rect x="28" y="36" width="3" height="3"/><rect x="34" y="38" width="3" height="3"/><rect x="40" y="36" width="3" height="3"/><rect x="44" y="42" width="3" height="3"/>
+      <rect x="20" y="44" width="3" height="3"/><rect x="30" y="44" width="3" height="3"/><rect x="36" y="44" width="3" height="3"/>
+    </g>
+  </symbol>
+</defs></svg>
+
+<header class="top"><div class="wrap" style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;width:100%;padding:0">
+  <div>
+    <span class="eyebrow">Rozhodnuté · značka Karty Bojničana (R-2026-34)</span>
+    <h1>Veža, na <span class="g">farebnej</span> karte.</h1>
+    <p class="lead">Vybraná značka: <b>Veža</b> (biely znak) na karte s <b>farebným gradientovým pozadím</b> —
+      farby pečate (oranžová → azúrová → fialová). <b>Rezident = Vivid, Turista = Azúr.</b>
+      Varianty pozadia nižšie sú ponechané ako referencia.</p>
+  </div>
+  <button class="theme" id="themeBtn" aria-label="Prepnúť svetlý/tmavý režim" title="Svetlý / tmavý režim">◑</button>
+</div></header>
+
+<main class="wrap">
+
+  <h2 class="sec">Znak Veža</h2>
+  <p class="sub">Vo farbe, inverzne na tmavej a jednofarebne (pečiatka / tlač).</p>
+  <div class="marks">
+    <div><div class="mtile grad"><svg width="70" height="70" viewBox="0 0 100 100" role="img" aria-label="Znak Veža vo farbe"><rect width="100" height="100" fill="url(#triGrad)" mask="url(#mSpire)"/></svg></div><div class="mcap">Gradient</div></div>
+    <div><div class="mtile rev"><svg width="70" height="70" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#fff" mask="url(#mSpire)"/></svg></div><div class="mcap">Inverzný</div></div>
+    <div><div class="mtile ink"><svg width="70" height="70" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="var(--ink)" mask="url(#mSpire)"/></svg></div><div class="mcap">Jednofarebný</div></div>
+  </div>
+
+  <h2 class="sec">Karta — hlavné prevedenie</h2>
+  <p class="sub">Farebné pozadie „Vivid" (farby pečate), znak Veža a wordmark Karta Bojničana.</p>
+  <div class="primary">
+    <div class="kb" style="--cardbg:var(--vivid)">
+      <span class="sheen"></span>
+      <div class="row">
+        <div class="brand">
+          <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#fff" mask="url(#mSpire)"/></svg>
+          <div class="wm">Karta<br>Bojničana</div>
+        </div>
+        <span class="klass">Rezident</span>
+      </div>
+      <div class="bot">
+        <div>
+          <div class="chip"></div>
+          <div class="name">Jana Nováková</div>
+          <div class="meta">Rezident · Platí do 08/2029</div>
+        </div>
+        <div class="qr"><svg><use href="#qr"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sec">Varianty pozadia</h2>
+  <p class="sub">Rovnaká karta, iný odtieň gradientu — nech vieš porovnať sýtosť a čitateľnosť.</p>
+  <div class="cardgrid">
+    <div class="cell">
+      <div class="kb" style="--cardbg:var(--vivid)"><span class="sheen"></span>
+        <div class="row"><div class="brand"><svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#fff" mask="url(#mSpire)"/></svg><div class="wm">Karta<br>Bojničana</div></div><span class="klass">Rezident</span></div>
+        <div class="bot"><div><div class="chip"></div><div class="name">Jana Nováková</div><div class="meta">Rezident · do 08/2029</div></div><div class="qr"><svg><use href="#qr"/></svg></div></div>
+      </div>
+      <div class="lbl"><b>Vivid</b> — plný tri-band <span class="pick">odporúčam</span></div>
+    </div>
+    <div class="cell">
+      <div class="kb" style="--cardbg:var(--sunset)"><span class="sheen"></span>
+        <div class="row"><div class="brand"><svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#fff" mask="url(#mSpire)"/></svg><div class="wm">Karta<br>Bojničana</div></div><span class="klass">Rezident</span></div>
+        <div class="bot"><div><div class="chip"></div><div class="name">Jana Nováková</div><div class="meta">Rezident · do 08/2029</div></div><div class="qr"><svg><use href="#qr"/></svg></div></div>
+      </div>
+      <div class="lbl"><b>Sunset</b> — teplejší, oranžovo-fialový</div>
+    </div>
+    <div class="cell">
+      <div class="kb" style="--cardbg:var(--night)"><span class="sheen"></span>
+        <div class="row"><div class="brand"><svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#fff" mask="url(#mSpire)"/></svg><div class="wm">Karta<br>Bojničana</div></div><span class="klass">Rezident</span></div>
+        <div class="bot"><div><div class="chip"></div><div class="name">Jana Nováková</div><div class="meta">Rezident · do 08/2029</div></div><div class="qr"><svg><use href="#qr"/></svg></div></div>
+      </div>
+      <div class="lbl"><b>Night</b> — tmavý, najlepšia čitateľnosť</div>
+    </div>
+    <div class="cell">
+      <div class="kb" style="--cardbg:var(--azure)"><span class="sheen"></span>
+        <div class="row"><div class="brand"><svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#fff" mask="url(#mSpire)"/></svg><div class="wm">Karta<br>Bojničana</div></div><span class="klass">Rezident</span></div>
+        <div class="bot"><div><div class="chip"></div><div class="name">Jana Nováková</div><div class="meta">Rezident · do 08/2029</div></div><div class="qr"><svg><use href="#qr"/></svg></div></div>
+      </div>
+      <div class="lbl"><b>Azúr</b> — chladnejší, modro-fialový</div>
+    </div>
+  </div>
+
+  <h2 class="sec">Typy karty</h2>
+  <p class="sub">Rezident a turista sa líšia farbou pozadia aj štítkom triedy (R-2026-14).</p>
+  <div class="cardgrid">
+    <div class="cell">
+      <div class="kb" style="--cardbg:var(--vivid)"><span class="sheen"></span>
+        <div class="row"><div class="brand"><svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#fff" mask="url(#mSpire)"/></svg><div class="wm">Karta<br>Bojničana</div></div><span class="klass">Rezident</span></div>
+        <div class="bot"><div><div class="chip"></div><div class="name">Jana Nováková</div><div class="meta">Rezident · do 08/2029</div></div><div class="qr"><svg><use href="#qr"/></svg></div></div>
+      </div>
+      <div class="lbl"><b>Rezident</b> — celoročná, plný gradient</div>
+    </div>
+    <div class="cell">
+      <div class="kb" style="--cardbg:var(--azure)"><span class="sheen"></span>
+        <div class="row"><div class="brand"><svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#fff" mask="url(#mSpire)"/></svg><div class="wm">Karta<br>Bojničana</div></div><span class="klass">Turista</span></div>
+        <div class="bot"><div><div class="chip"></div><div class="name">Petra Horváthová</div><div class="meta">Turista · do 09/2026</div></div><div class="qr"><svg><use href="#qr"/></svg></div></div>
+      </div>
+      <div class="lbl"><b>Turista</b> — časovo ohraničená, chladnejší odtieň</div>
+    </div>
+  </div>
+
+  <footer>
+    <b>Ďalší krok.</b> Vyber odtieň pozadia (Vivid / Sunset / Night / Azúr) a či turista dostane iný odtieň.
+    <ol class="steps">
+      <li>Doladím vybraný gradient, kontrast textu (prístupnosť D6) a proporcie znaku.</li>
+      <li>Pripravím čistý produkčný SVG znaku + kartu (rezident/turista) ako asset.</li>
+      <li>Zapíšem rozhodnutie o značke do <b>rozhodnutia.md</b> a odovzdám implementérovi do appky aj webu.</li>
+    </ol>
+  </footer>
+</main>
+
+<script>
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var c=document.documentElement.getAttribute('data-theme');
+    var n=c==='dark'?'light':(c==='light'?'dark':(matchMedia('(prefers-color-scheme:dark)').matches?'light':'dark'));
+    document.documentElement.setAttribute('data-theme',n);
+  });
+</script>
