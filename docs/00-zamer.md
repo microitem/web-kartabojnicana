@@ -23,14 +23,16 @@ potrebuje inú výzvu na akciu (CTA) smerujúcu do appky.
 > Reviewer navrhuje **kostru sekcií**; **texty, čísla a obrázky dodá CEO** (W2/R-2026-29).
 > Kde chýba schválený obsah, sekcia sa vynechá — radšej menej než vymyslené.
 
-1. **Hero** — názov programu, jednovetový claim, primárne CTA („Získať kartu" → registrácia v appke).
-2. **Čo je Bojnická karta** — krátky faktický popis (rezident vs turista).
+1. **Hero** — názov **Karta Bojničana** so značkou „Veža" (R-2026-34), jednovetový claim,
+   primárne CTA („Získať kartu" → registrácia v appke).
+2. **Čo je Karta Bojničana** — krátky faktický popis (rezident vs turista).
 3. **Pre koho / typy kariet** — rezident a turista (rámcovo; detail rieši appka).
 4. **Ako to funguje** — 3 kroky: registrácia → karta v mobile/QR → zľava u prevádzky.
 5. **Pre prevádzky** — krátko + CTA na prihlásenie prevádzky (appka).
 6. **Časté otázky (FAQ)** — voliteľné, obsah CEO.
-7. **Pätička** — kontakt na program, odkaz na zásady ochrany osobných údajov (appka/mesto),
-   odkazy do appky (registrácia, prihlásenie prevádzky/MsÚ).
+7. **Pätička** — „Prevádzkuje platforma Dobré Bojnice" (R-2026-31), kontakt na program,
+   odkaz na zásady ochrany osobných údajov (appka / prevádzkovateľ), odkazy do appky
+   (registrácia, prihlásenie prevádzky / overovateľa).
 
 ## 4. Acceptance (rámcové, pre prvú iteráciu)
 

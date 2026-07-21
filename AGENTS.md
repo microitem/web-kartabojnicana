@@ -28,7 +28,7 @@ samotná aplikácia — tá žije v repe [`microitem/kartabojnicana`](https://gi
   (voliteľne ďalšie jazyky pre turistov neskôr = rozšírenie).
 - **W4 — EÚ hosting.** Konzistentne s programom; infra rieši implementer.
 - **W5 — Pravdivé odkazy na appku.** Odkazy na `app.kartabojnicana.sk` (registrácia
-  turistu/rezidenta, prihlásenie prevádzky/MsÚ) musia byť správne a funkčné.
+  turistu/rezidenta, prihlásenie prevádzky / overovateľa platformy) musia byť správne a funkčné.
 - **W6 — Žiadne tajomstvá v repe.** `.env`, kľúče, certifikáty mimo git.
 
 ## 3. Rozsah
