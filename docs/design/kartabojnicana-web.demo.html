@@ -7,7 +7,7 @@
     --purple:#4a1a86; --purple-900:#2c0f57; --purple-700:#3b1570;
     --orange:#f26a21; --orange-600:#dd570f;
     --on-purple:#efe9fb; --on-purple-muted:#b8a9df; --purple-card:#5a2599;
-    --grad:linear-gradient(135deg,#f7852f 0%,#f26a21 28%,#8e39b0 72%,#4a1a86 100%);
+    --grad:linear-gradient(135deg,#f56317 0%,#ee5411 18%,#1f86c6 52%,#6a1fb2 82%,#9c1fca 100%);
     --grad-soft:linear-gradient(135deg,#faf3ff,#fdefe6);
     --radius:18px; --shadow:0 18px 50px -20px rgba(46,15,87,.35);
     --maxw:1140px;
@@ -247,6 +247,16 @@
     <rect x="26" y="6" width="8" height="7" fill="#000"/>
     <rect x="42" y="6" width="8" height="7" fill="#000"/>
   </mask>
+  <mask id="mSpire">
+    <circle cx="50" cy="8" r="3.4" fill="#fff"/>
+    <rect x="48.6" y="8" width="2.8" height="12" fill="#fff"/>
+    <path d="M51 9 L64 12.5 L51 16 Z" fill="#fff"/>
+    <path d="M50 18 L30 58 L70 58 Z" fill="#fff"/>
+    <rect x="34" y="57" width="32" height="31" fill="#fff"/>
+    <rect x="27" y="88" width="46" height="7" rx="3" fill="#fff"/>
+    <rect x="44" y="64" width="12" height="24" rx="6" fill="#000"/>
+    <rect x="37" y="46" width="26" height="4" rx="2" fill="#000"/>
+  </mask>
 </defs></svg>
 
 <div class="notice"><div class="wrap">
@@ -255,9 +265,9 @@
 </div></div>
 
 <header><div class="wrap">
-  <a class="logo" href="#" aria-label="Dobré Bojnice — Karta Bojničana">
-    <svg class="mk" width="43" height="39" viewBox="0 0 70 64" aria-hidden="true"><rect width="70" height="64" fill="url(#dg)" mask="url(#dm)"/></svg>
-    <span class="wm">DOBRÉ<br><b>BOJNICE</b></span>
+  <a class="logo" href="#" aria-label="Karta Bojničana">
+    <svg class="mk" width="38" height="38" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="url(#dg)" mask="url(#mSpire)"/></svg>
+    <span class="wm">Karta<br><b>Bojničana</b></span>
   </a>
   <nav class="links" aria-label="Hlavné menu">
     <a href="#co">Čo je karta</a>
@@ -292,7 +302,7 @@
     <div class="karta" role="img" aria-label="Ukážka Karty Bojničana s logom Dobré Bojnice">
       <div class="kt">
         <div class="lbl">Karta Bojničana</div>
-        <svg width="40" height="37" viewBox="0 0 70 64" aria-hidden="true"><rect width="70" height="64" fill="#fff" mask="url(#dm)"/></svg>
+        <svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#fff" mask="url(#mSpire)"/></svg>
       </div>
       <div class="kb">
         <div>
@@ -480,10 +490,11 @@
 <footer><div class="wrap">
   <div class="fcols">
     <div>
-      <a class="logo" href="#" style="margin-bottom:14px">
-        <svg class="mk" width="44" height="40" viewBox="0 0 70 64" aria-hidden="true"><rect width="70" height="64" fill="url(#dg)" mask="url(#dm)"/></svg>
-        <span class="wm">DOBRÉ<br><b>BOJNICE</b></span>
+      <a class="logo" href="#" style="margin-bottom:10px">
+        <svg class="mk" width="40" height="40" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="url(#dg)" mask="url(#mSpire)"/></svg>
+        <span class="wm">Karta<br><b>Bojničana</b></span>
       </a>
+      <p style="font-size:12px;letter-spacing:.04em;margin:0 0 8px">Prevádzkuje platforma <b style="color:#fff">Dobré Bojnice</b></p>
       <p style="font-size:14px;max-width:34ch;margin:6px 0 0">Karta Bojničana — vernostný a zľavový program platformy Dobré Bojnice pre občanov a návštevníkov mesta Bojnice.</p>
     </div>
     <div><h4>Program</h4><ul>
