@@ -1,0 +1,33 @@
+# web-kartabojnicana — Docker Compose (PRODUCTION, VPS1)
+# Deployed via .github/workflows/deploy.yml (tag-triggered), never manually built
+# on the server. Unlike docker-compose.yml (dev, VPS6): pulls a pre-built GHCR
+# image (no `build:`, no source bind mount), publishes NO host port (reverse-proxied
+# by the shared nginx-proxy-manager — forward_host=web-kartabojnicana-app,
+# forward_port=3000). No database, no secrets — NEXT_PUBLIC_APP_URL is
+# configuration only (W6).
+
+networks:
+  web_kartabojnicana_prod_net:
+    name: web_kartabojnicana_prod_net
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+  web-kartabojnicana-app:
+    image: ghcr.io/microitem/web-kartabojnicana:${IMAGE_TAG:-latest}
+    container_name: web-kartabojnicana-app-prod
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://app.kartabojnicana.sk}
+    networks: [web_kartabojnicana_prod_net]
+    logging: *default-logging
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

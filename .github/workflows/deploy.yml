@@ -1,0 +1,162 @@
+name: Production Deploy to VPS1
+
+# Mirrors microitem/kartabojnicana's deploy.yml pattern (docs/01-zadanie-implementacia.md
+# §4 "Postup nasadenia"). Triggers only on a version tag — the single CEO gate is
+# "GO → produkcia" *before* this tag is pushed, not anything inside this workflow.
+# No database, no migrations — simpler than the app repo's deploy.
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      rollback:
+        description: 'Set to "true" to roll back to the last deploy backup instead of deploying'
+        required: false
+        default: 'false'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image-tag: ${{ steps.meta.outputs.version }}
+      image-digest: ${{ steps.build.outputs.digest }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+
+      - id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          target: production
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          no-cache: true
+          pull: true
+
+  deploy-to-vps1:
+    if: github.event_name == 'push'
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://kartabojnicana.sk
+    steps:
+      - name: Deploy to VPS1
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS1_HOST }}
+          port: ${{ secrets.VPS1_PORT }}
+          username: ${{ secrets.VPS1_USER }}
+          key: ${{ secrets.VPS1_SSH_KEY }}
+          script: |
+            set -e
+            NEW_IMAGE_TAG="${{ needs.build-and-push.outputs.image-tag }}"
+            IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$NEW_IMAGE_TAG"
+            DIGEST="${{ needs.build-and-push.outputs.image-digest }}"
+            PROJECT_DIR="${{ secrets.VPS1_PROJECT_DIR }}"
+            TAG="${{ github.ref_name }}"
+
+            echo "🚀 Deploying $IMAGE ($TAG) to $PROJECT_DIR"
+            cd "$PROJECT_DIR"
+
+            PREVIOUS_IMAGE_TAG=$(docker inspect --format='{{.Config.Image}}' web-kartabojnicana-app-prod 2>/dev/null | sed 's/.*://' || true)
+
+            echo "🔐 Logging into GHCR (isolated config, this repo's package only)"
+            export DOCKER_CONFIG="$PROJECT_DIR/.docker-config"
+            mkdir -p "$DOCKER_CONFIG"
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+            echo "📥 Fetching repo at tag $TAG (needed for docker-compose.production.yml)"
+            git fetch --tags --force origin
+            git checkout "$TAG"
+
+            echo "📦 Backing up current deploy config (image tag: ${PREVIOUS_IMAGE_TAG:-none, first deploy})..."
+            if [ -n "$PREVIOUS_IMAGE_TAG" ]; then
+              IMAGE_TAG="$PREVIOUS_IMAGE_TAG" docker compose -f docker-compose.production.yml config > ".deploy-backup-$(date +%Y%m%d-%H%M%S).yml"
+            fi
+
+            export IMAGE_TAG="$NEW_IMAGE_TAG"
+
+            echo "📥 Pulling exact image..."
+            docker compose -f docker-compose.production.yml pull web-kartabojnicana-app
+
+            PULLED_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' "$IMAGE" | cut -d'@' -f2)
+            if [ "$DIGEST" != "$PULLED_DIGEST" ]; then
+              echo "❌ DIGEST MISMATCH — ABORTING"
+              exit 1
+            fi
+
+            echo "🔄 Deploying..."
+            docker compose -f docker-compose.production.yml up -d --remove-orphans
+
+            echo "⏳ Waiting for health check..."
+            HEALTHY=false
+            for i in $(seq 1 5); do
+              sleep 10
+              if ! docker compose -f docker-compose.production.yml ps | grep -q "unhealthy"; then
+                HEALTHY=true
+                break
+              fi
+            done
+
+            if [ "$HEALTHY" = false ]; then
+              echo "❌ DEPLOY FAILED — rolling back"
+              BACKUP_FILE=$(ls -t .deploy-backup-*.yml 2>/dev/null | head -1)
+              if [ -n "$BACKUP_FILE" ]; then
+                docker compose -f "$BACKUP_FILE" up -d --remove-orphans
+              fi
+              exit 1
+            fi
+
+            echo "🧹 Cleaning old images..."
+            docker image prune -f
+
+            echo "✅ Deployment successful: $IMAGE_TAG"
+
+  rollback:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.rollback == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    steps:
+      - name: Roll back to previous deploy backup
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS1_HOST }}
+          port: ${{ secrets.VPS1_PORT }}
+          username: ${{ secrets.VPS1_USER }}
+          key: ${{ secrets.VPS1_SSH_KEY }}
+          script: |
+            cd "${{ secrets.VPS1_PROJECT_DIR }}"
+            LAST_BACKUP=$(ls -t .deploy-backup-*.yml 2>/dev/null | head -1)
+            if [ -z "$LAST_BACKUP" ]; then
+              echo "❌ No backup found"
+              exit 1
+            fi
+            echo "🔄 Rolling back via $LAST_BACKUP"
+            docker compose -f "$LAST_BACKUP" up -d --remove-orphans
+            echo "✅ Rollback complete"
