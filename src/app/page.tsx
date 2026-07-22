@@ -58,48 +58,50 @@ export default function Home() {
       <DraftNotice />
       <main>
         {/* Hero */}
-        <section className="relative mx-auto grid max-w-6xl gap-12 overflow-hidden px-4 py-16 md:grid-cols-2 md:items-center md:py-24">
+        <section className="relative overflow-hidden">
           <div
-            className="blob absolute left-6 top-8 -z-10 h-56 w-56 rounded-full bg-orange-400/30 blur-3xl"
+            className="blob absolute left-[6%] top-8 -z-10 h-56 w-56 rounded-full bg-orange-400/30 blur-3xl"
             aria-hidden="true"
           />
           <div
-            className="blob absolute right-10 top-16 -z-10 h-64 w-64 rounded-full bg-[#6a1fb2]/25 blur-3xl"
+            className="blob absolute right-[8%] top-16 -z-10 h-64 w-64 rounded-full bg-[#6a1fb2]/25 blur-3xl"
             style={{ animationDelay: "-8s" }}
             aria-hidden="true"
           />
-          <div>
-            <span className="reveal inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
-              <span className="h-0.5 w-6 rounded bg-orange-600" />
-              Vernostný program platformy Dobré Bojnice
-            </span>
-            <h1 className="reveal mt-4 text-4xl font-bold leading-tight text-[#241d3a] sm:text-5xl">
-              Karta Bojničana. Mesto, ktoré sa vám <span className="text-orange-600">oplatí</span>.
-            </h1>
-            <p className="reveal mt-5 max-w-[34ch] text-lg text-gray-600">
-              Jedna karta pre Bojničanov aj návštevníkov — zľavy u partnerov mesta, rezidentské
-              výhody a všetko jednoducho v mobile alebo na fyzickej karte.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <a
-                href={appLinks.registerTourist}
-                className="rounded-xl bg-orange-600 px-5 py-3 text-[15px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-600/25 active:translate-y-0"
-              >
-                Získať kartu zdarma
-              </a>
-              <a
-                href="#ako-funguje"
-                className="rounded-xl border border-gray-300 px-5 py-3 text-[15px] font-semibold text-[#241d3a] transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-400 hover:bg-gray-50"
-              >
-                Ako to funguje
-              </a>
+          <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 md:grid-cols-2 md:items-center md:py-24">
+            <div>
+              <span className="reveal inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
+                <span className="h-0.5 w-6 rounded bg-orange-600" />
+                Vernostný program platformy Dobré Bojnice
+              </span>
+              <h1 className="reveal mt-4 text-4xl font-bold leading-tight text-[#241d3a] sm:text-5xl">
+                Karta Bojničana. Mesto, ktoré sa vám <span className="text-orange-600">oplatí</span>.
+              </h1>
+              <p className="reveal mt-5 max-w-[34ch] text-lg text-gray-600">
+                Jedna karta pre Bojničanov aj návštevníkov — zľavy u partnerov mesta, rezidentské
+                výhody a všetko jednoducho v mobile alebo na fyzickej karte.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a
+                  href={appLinks.registerTourist}
+                  className="rounded-xl bg-orange-600 px-5 py-3 text-[15px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-600/25 active:translate-y-0"
+                >
+                  Získať kartu zdarma
+                </a>
+                <a
+                  href="#ako-funguje"
+                  className="rounded-xl border border-gray-300 px-5 py-3 text-[15px] font-semibold text-[#241d3a] transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-400 hover:bg-gray-50"
+                >
+                  Ako to funguje
+                </a>
+              </div>
+              <p className="mt-5 text-sm text-gray-500">
+                Turistická aj rezidentská karta sú <b>zdarma</b>. Registrácia online za pár minút.
+              </p>
             </div>
-            <p className="mt-5 text-sm text-gray-500">
-              Turistická aj rezidentská karta sú <b>zdarma</b>. Registrácia online za pár minút.
-            </p>
-          </div>
-          <div className="hero-card-float">
-            <HeroCard />
+            <div className="hero-card-float">
+              <HeroCard />
+            </div>
           </div>
         </section>
 
