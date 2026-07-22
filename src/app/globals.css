@@ -34,6 +34,19 @@ body {
   outline-offset: 2px;
 }
 
+/* Animovaný spodný podčiark pri hoveri — bez posunu layoutu (moderné odkazy) */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size 300ms ease;
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 2px;
+}
+
 html {
   scroll-behavior: smooth;
 }

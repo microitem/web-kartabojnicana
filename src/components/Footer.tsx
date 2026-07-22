@@ -19,18 +19,18 @@ export function Footer() {
           <div>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-white">Program</h2>
             <ul className="flex flex-col gap-2.5 text-sm">
-              <li><a href="#co-je" className="hover:text-white">Čo je karta</a></li>
-              <li><a href="#pre-koho" className="hover:text-white">Pre koho</a></li>
-              <li><a href="#ako-funguje" className="hover:text-white">Ako funguje</a></li>
-              <li><a href="#prevadzky" className="hover:text-white">Pre prevádzky</a></li>
+              <li><a href="#co-je" className="link-underline pb-0.5 transition-colors duration-200 hover:text-white">Čo je karta</a></li>
+              <li><a href="#pre-koho" className="link-underline pb-0.5 transition-colors duration-200 hover:text-white">Pre koho</a></li>
+              <li><a href="#ako-funguje" className="link-underline pb-0.5 transition-colors duration-200 hover:text-white">Ako funguje</a></li>
+              <li><a href="#prevadzky" className="link-underline pb-0.5 transition-colors duration-200 hover:text-white">Pre prevádzky</a></li>
             </ul>
           </div>
           <div>
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-white">Aplikácia</h2>
             <ul className="flex flex-col gap-2.5 text-sm">
-              <li><a href={appLinks.registerTourist} className="hover:text-white">Získať kartu (registrácia)</a></li>
-              <li><a href={appLinks.home} className="hover:text-white">Moja karta</a></li>
-              <li><a href={appLinks.merchantLogin} className="hover:text-white">Prihlásenie prevádzky</a></li>
+              <li><a href={appLinks.registerTourist} className="link-underline pb-0.5 transition-colors duration-200 hover:text-white">Získať kartu (registrácia)</a></li>
+              <li><a href={appLinks.home} className="link-underline pb-0.5 transition-colors duration-200 hover:text-white">Moja karta</a></li>
+              <li><a href={appLinks.merchantLogin} className="link-underline pb-0.5 transition-colors duration-200 hover:text-white">Prihlásenie prevádzky</a></li>
             </ul>
           </div>
         </div>

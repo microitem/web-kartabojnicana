@@ -60,23 +60,23 @@ export default function Home() {
         {/* Hero */}
         <section className="relative mx-auto grid max-w-6xl gap-12 overflow-hidden px-4 py-16 md:grid-cols-2 md:items-center md:py-24">
           <div
-            className="blob absolute -left-24 -top-24 -z-10 h-72 w-72 rounded-full bg-orange-400/30"
+            className="blob absolute left-6 top-8 -z-10 h-56 w-56 rounded-full bg-orange-400/30 blur-3xl"
             aria-hidden="true"
           />
           <div
-            className="blob absolute -right-16 top-10 -z-10 h-80 w-80 rounded-full bg-[#6a1fb2]/20"
+            className="blob absolute right-10 top-16 -z-10 h-64 w-64 rounded-full bg-[#6a1fb2]/25 blur-3xl"
             style={{ animationDelay: "-8s" }}
             aria-hidden="true"
           />
           <div>
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
+            <span className="reveal inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
               <span className="h-0.5 w-6 rounded bg-orange-600" />
               Vernostný program platformy Dobré Bojnice
             </span>
-            <h1 className="mt-4 text-4xl font-bold leading-tight text-[#241d3a] sm:text-5xl">
+            <h1 className="reveal mt-4 text-4xl font-bold leading-tight text-[#241d3a] sm:text-5xl">
               Karta Bojničana. Mesto, ktoré sa vám <span className="text-orange-600">oplatí</span>.
             </h1>
-            <p className="mt-5 max-w-[34ch] text-lg text-gray-600">
+            <p className="reveal mt-5 max-w-[34ch] text-lg text-gray-600">
               Jedna karta pre Bojničanov aj návštevníkov — zľavy u partnerov mesta, rezidentské
               výhody a všetko jednoducho v mobile alebo na fyzickej karte.
             </p>
@@ -106,14 +106,14 @@ export default function Home() {
         {/* Čo je karta */}
         <section id="co-je" className="bg-[#4a1a86] py-20 text-white">
           <div className="mx-auto max-w-6xl px-4">
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-300">
+            <span className="reveal inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-300">
               <span className="h-0.5 w-6 rounded bg-orange-300" />
               Prečo Karta Bojničana
             </span>
-            <h2 className="mt-3 max-w-[38ch] text-3xl font-bold sm:text-4xl">
+            <h2 className="reveal mt-3 max-w-[38ch] text-3xl font-bold sm:text-4xl">
               Výhody, ktoré ostávajú v Bojniciach.
             </h2>
-            <p className="mt-4 max-w-[60ch] text-[#b8a9df]">
+            <p className="reveal mt-4 max-w-[60ch] text-[#b8a9df]">
               Bojnice žijú z návštevníkov — karta prináša konkrétny úžitok obyvateľom aj hosťom
               a pomáha lokálnym prevádzkam.
             </p>
@@ -133,12 +133,12 @@ export default function Home() {
 
         {/* Pre koho */}
         <section id="pre-koho" className="mx-auto max-w-6xl px-4 py-20">
-          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
+          <span className="reveal inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
             <span className="h-0.5 w-6 rounded bg-orange-600" />
             Pre koho je karta
           </span>
-          <h2 className="mt-3 text-3xl font-bold text-[#241d3a] sm:text-4xl">Dve karty, jeden program.</h2>
-          <p className="mt-4 max-w-[60ch] text-gray-600">
+          <h2 className="reveal mt-3 text-3xl font-bold text-[#241d3a] sm:text-4xl">Dve karty, jeden program.</h2>
+          <p className="reveal mt-4 max-w-[60ch] text-gray-600">
             Podľa toho, či v Bojniciach bývate alebo ste na návšteve — obe sú zdarma.
           </p>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -186,11 +186,11 @@ export default function Home() {
         {/* Ako funguje */}
         <section id="ako-funguje" className="bg-gray-50 py-20">
           <div className="mx-auto max-w-6xl px-4">
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
+            <span className="reveal inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
               <span className="h-0.5 w-6 rounded bg-orange-600" />
               Ako to funguje
             </span>
-            <h2 className="mt-3 text-3xl font-bold text-[#241d3a] sm:text-4xl">
+            <h2 className="reveal mt-3 text-3xl font-bold text-[#241d3a] sm:text-4xl">
               Od registrácie po zľavu na tri kroky.
             </h2>
             <div className="mt-10 grid gap-6 md:grid-cols-3">
@@ -227,14 +227,14 @@ export default function Home() {
         <section id="prevadzky" className="mx-auto max-w-6xl px-4 py-20">
           <div className="grid gap-10 md:grid-cols-2 md:items-center">
             <div>
-              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
+              <span className="reveal inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
                 <span className="h-0.5 w-6 rounded bg-orange-600" />
                 Pre prevádzky a partnerov
               </span>
-              <h2 className="mt-3 text-3xl font-bold text-[#241d3a] sm:text-4xl">
+              <h2 className="reveal mt-3 text-3xl font-bold text-[#241d3a] sm:text-4xl">
                 Viac zákazníkov, plná kontrola nad zľavami.
               </h2>
-              <p className="mt-4 text-gray-600">
+              <p className="reveal mt-4 text-gray-600">
                 Zapojte svoju prevádzku do programu — každé uplatnenie zľavy vidíte v prehľade,
                 s exportom pre účtovníctvo. Žiadne papierové kupóny.
               </p>
@@ -284,12 +284,12 @@ export default function Home() {
         {/* Katalóg */}
         <section className="bg-[#4a1a86] py-20 text-white">
           <div className="mx-auto max-w-6xl px-4">
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-300">
+            <span className="reveal inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-300">
               <span className="h-0.5 w-6 rounded bg-orange-300" />
               Kde karta platí
             </span>
-            <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Katalóg partnerov — čoskoro.</h2>
-            <p className="mt-4 max-w-[60ch] text-[#b8a9df]">
+            <h2 className="reveal mt-3 text-3xl font-bold sm:text-4xl">Katalóg partnerov — čoskoro.</h2>
+            <p className="reveal mt-4 max-w-[60ch] text-[#b8a9df]">
               Pripravujeme verejný zoznam prevádzok a zliav, kde Karta Bojničana platí. Zoznam sa
               zverejní pri spustení programu.
             </p>
@@ -311,11 +311,11 @@ export default function Home() {
 
         {/* FAQ */}
         <section id="faq" className="mx-auto max-w-3xl px-4 py-20">
-          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
+          <span className="reveal inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
             <span className="h-0.5 w-6 rounded bg-orange-600" />
             Časté otázky
           </span>
-          <h2 className="mt-3 text-3xl font-bold text-[#241d3a] sm:text-4xl">Dobré vedieť.</h2>
+          <h2 className="reveal mt-3 text-3xl font-bold text-[#241d3a] sm:text-4xl">Dobré vedieť.</h2>
           <div className="mt-8 border-t border-gray-200">
             {FAQ.map((item) => (
               <details key={item.q} className="group border-b border-gray-200 py-5">
@@ -338,7 +338,7 @@ export default function Home() {
 
         {/* CTA */}
         <section className="px-4 pb-20">
-          <div className="brand-gradient mx-auto max-w-6xl rounded-3xl px-8 py-14 text-center text-white">
+          <div className="reveal brand-gradient mx-auto max-w-6xl rounded-3xl px-8 py-14 text-center text-white">
             <h2 className="text-3xl font-bold sm:text-4xl">Vaša karta na vás čaká.</h2>
             <p className="mx-auto mt-4 max-w-[50ch] text-white/90">
               Zaregistrujte sa a majte výhody Bojníc vždy so sebou — v mobile aj na fyzickej karte.

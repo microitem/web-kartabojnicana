@@ -19,7 +19,11 @@ export function Header() {
         </Link>
         <nav aria-label="Hlavné menu" className="hidden gap-6 text-sm font-medium text-gray-700 md:flex">
           {NAV.map((item) => (
-            <a key={item.href} href={item.href} className="transition-colors duration-200 hover:text-gray-950">
+            <a
+              key={item.href}
+              href={item.href}
+              className="link-underline pb-0.5 transition-colors duration-200 hover:text-gray-950"
+            >
               {item.label}
             </a>
           ))}
