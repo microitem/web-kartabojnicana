@@ -9,6 +9,15 @@
 networks:
   web_kartabojnicana_prod_net:
     name: web_kartabojnicana_prod_net
+    # Explicit subnet — VPS1's default docker address pools (192.168.0.0/16
+    # split into /20s) are fully allocated across existing projects (31
+    # networks already on the host); auto-assignment fails with "all
+    # predefined address pools have been fully subnetted". 172.31.0.0/16 is
+    # the last unclaimed /16 in the 172.17-172.31 range (verified via
+    # `docker network inspect` across all existing networks on VPS1).
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
 
 x-logging: &default-logging
   driver: json-file
