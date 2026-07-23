@@ -47,7 +47,11 @@ verejný katalóg partnerov a zliav (UC-08 tam, M2), akékoľvek spracúvanie os
 3. **Prístupnosť** (WCAG 2.1 AA) a **SK** jazyk (W3); responzívne.
 4. Odkazy na `app.kartabojnicana.sk` funkčné (W5).
 5. Žiadne osobné údaje (W1), žiadne tajomstvá v repe (W6).
-6. Živá ukážka bežiaceho webu pre CEO (kánon §4b) pri fáze s viditeľným výstupom.
+6. **Používateľsky viditeľný výstup:** HOTOVO je doložené **dôkazom voči záväznej
+   referencii** (screenshoty svetlý+tmavý režim) + **build-stamp** (verzia/SHA), na ploche
+   viditeľnej všetkým (repo `docs/reviews/` alebo zdieľaná URL) — **kánon §4b (v1.7)**.
+   Tool-private plochy (claude.ai artifact, `localhost` tunel) **nie sú dôkaz**; „funguje
+   u mňa" ani „je to na strane klienta" (bez build-stampu a nápravy cache) neplatia.
 
 ## 5. Jazyk a konvencie
 

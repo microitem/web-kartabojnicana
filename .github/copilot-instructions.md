@@ -17,6 +17,11 @@ reviewera (Claude); zmenu navrhnem cez projektovú Issue.
 4. Pri neistote → **najprv OTÁZKA reviewerovi** (Issue); pri pochybnosti o rozsahu/DNA
    → **STOP + OTÁZKA**, nikdy tichá zmena.
 5. **Mazanie plne zlúčených git vetiev** smiem sám (kánon §3); nezlúčené = CEO.
+6. **Dôkaz výstupu (kánon §4b, v1.7):** HOTOVO s viditeľným výstupom dokladám
+   **screenshotmi vedľa záväznej referencie** (svetlý+tmavý) + **build-stampom** (verzia/SHA)
+   z **user-facing plochy**, commitnuté do `docs/reviews/` alebo zdieľaná URL. **Tool-private
+   plochy (claude.ai artifact, `localhost` tunel) nie sú dôkaz;** „funguje u mňa" / „je to na
+   strane klienta" (bez build-stampu + cache-busting) = neúplné HOTOVO.
 
 ## DNA tohto repa (z AGENTS.md — neprekročiteľné)
 
